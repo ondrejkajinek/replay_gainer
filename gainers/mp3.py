@@ -19,16 +19,16 @@ class Mp3Gainer(Gainer):
 
     supported_suffixes = (".mp3", )
 
-    def add(self, directory):
-        super(Mp3Gainer, self).add(directory)
+    def add(self, directory, start_time, force=False):
+        super(Mp3Gainer, self).add(directory, start_time, force)
         for track in self._list_tracks(directory):
             try:
                 self._apev2_to_id3(track)
             except:
                 pass
 
-    def remove(self, directory):
-        super(Mp3Gainer, self).remove(directory)
+    def remove(self, directory, start_time, force=False):
+        super(Mp3Gainer, self).remove(directory, start_time, force)
         for track in self._list_tracks(directory):
             try:
                 self._remove_id3_replaygain(track)
