@@ -66,8 +66,7 @@ if __name__ == "__main__":
         print("Couldn't create lock file: %s" % exc)
         lock = None
     else:
-        options = _get_options()
-        gainer = Gainer(options)
+        gainer = Gainer(_get_options())
         gainer.process(lock.lock_time())
     finally:
         if lock:

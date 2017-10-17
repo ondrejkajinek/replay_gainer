@@ -71,5 +71,5 @@ class Gainer(object):
         dirs = [self._directory]
         while dirs:
             current_dir = dirs.pop()
-            dirs.extend(list(self._subdirs(current_dir)))
+            dirs.extend(self._subdirs(current_dir))
             yield current_dir
