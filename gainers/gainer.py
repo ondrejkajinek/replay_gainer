@@ -14,19 +14,19 @@ class Gainer(object):
         ("replaygain_track_peak", convert_peak),
     )
 
-    gain_programm = None
+    gain_program = None
 
     supported_suffixes = set()
 
     def __init__(self):
-        if self.gain_programm is None:
+        if self.gain_program is None:
             raise RuntimeError(
                 "No replay-gain util configured for class %r" % str(self)
             )
 
-        if not has_command(self.gain_programm):
+        if not has_command(self.gain_program):
             raise RuntimeError(
-                "Program %r is not available" % self.gain_programm
+                "Program %r is not available" % self.gain_program
             )
 
         if not self.supported_suffixes:

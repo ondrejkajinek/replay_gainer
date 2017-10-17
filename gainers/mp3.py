@@ -15,7 +15,7 @@ from .utils import error, info
 
 class Mp3Gainer(Gainer):
 
-    gain_programm = "mp3gain"
+    gain_program = "mp3gain"
 
     supported_suffixes = (".mp3", )
 
@@ -37,7 +37,7 @@ class Mp3Gainer(Gainer):
 
     def _add_command(self, directory):
         return """%s -s a %s""" % (
-            self.gain_programm, path.join(directory, "*.mp3")
+            self.gain_program, path.join(directory, "*.mp3")
         )
 
     def _apev2_to_id3(self, track):
@@ -104,5 +104,5 @@ class Mp3Gainer(Gainer):
 
     def _remove_command(self, directory):
         return """%s -s d %s""" % (
-            self.gain_programm, path.join(directory, "*.mp3")
+            self.gain_program, path.join(directory, "*.mp3")
         )

@@ -5,7 +5,7 @@ from .gainer import Gainer
 
 class VorbisGainer(Gainer):
 
-    # gain_programm = ""
+    # gain_program = ""
 
     supported_suffixes = (".ogg", )
 
@@ -13,12 +13,12 @@ class VorbisGainer(Gainer):
         pass
         # TODO
         # return """%s --add-replay-gain %s""" % (
-        #     self.gain_programm, path.join(directory, "*.flac")
+        #     self.gain_program, path.join(directory, "*.flac")
         # )
 
     def _remove_command(self, directory):
         pass
         # TODO
         # return """%s --remove-replay-gain %s""" % (
-        #     self.gain_programm, path.join(directory, "*.flac")
+        #     self.gain_program, path.join(directory, "*.flac")
         # )
