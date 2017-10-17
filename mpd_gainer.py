@@ -16,14 +16,14 @@ def _check_options(options):
         print("No action selected, --add-replay-gain used as default")
         options.add_replay_gain = True
 
-    if options.process_all:
-        # for opt in ("process_flac", "process_vorbis", "process_mp3"):
-        for opt in ("process_flac", "process_mp3"):
+    if options.all:
+        # for opt in ("flac", "vorbis", "mp3"):
+        for opt in ("flac", "mp3"):
             setattr(options, opt, True)
 
     if not any(
-        # (options.process_flac, options.process_vorbis, options.process_mp3)
-        (options.process_flac, options.process_mp3)
+        # (options.flac, options.vorbis, options.mp3)
+        (options.flac, options.mp3)
     ):
         raise RuntimeError(
             "No media type selected, will do nothing. "
@@ -49,9 +49,9 @@ def _get_options():
     add_switch(parser, "--dry", dest="debug")
     add_switch(parser, "--force", "-F")
     media_types = ("flac", "vorbis", "mp3")
-    add_switch(parser, "--process-all")
+    add_switch(parser, "--all")
     for media_type in media_types:
-        add_switch(parser, "--process-%s" % media_type)
+        add_switch(parser, "--%s" % media_type)
 
     options = parser.parse_args()
     _check_options(options)

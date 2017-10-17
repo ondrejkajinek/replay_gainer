@@ -43,15 +43,15 @@ class Gainer(object):
 
     def _load_gainers(self, options):
         gainers = []
-        if options.process_flac:
+        if options.flac:
             from gainers import FlacGainer
             gainers.append(FlacGainer(options.debug))
 
-        if options.process_vorbis:
+        if options.vorbis:
             from gainers import VorbisGainer
             gainers.append(VorbisGainer(options.debug))
 
-        if options.process_mp3:
+        if options.mp3:
             from gainers import Mp3Gainer
             gainers.append(Mp3Gainer(options.debug))
 
