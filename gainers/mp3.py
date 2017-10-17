@@ -55,9 +55,9 @@ class Mp3Gainer(Gainer):
 
         if saving:
             id3.save(track)
-            info("Track %r: APEv2 copied to ID3", track)
+            info("Track '%s': APEv2 copied to ID3", track)
         else:
-            info("No changes made in file %r, not saving", track)
+            info("No changes made in file '%s', not saving", track)
 
     def _copy_replaygain_tag(self, ape, id3, tag_name, converter):
         if callable(converter):
@@ -74,7 +74,7 @@ class Mp3Gainer(Gainer):
         try:
             ape = APEv2(track)
         except apev2_error:
-            info("No APEv2 on file %r, skipping", track)
+            info("No APEv2 on file '%s', skipping", track)
             raise
         except:
             error("Error: %s", exc_info()[1])
@@ -86,7 +86,7 @@ class Mp3Gainer(Gainer):
         try:
             id3 = ID3(track)
         except id3_error:
-            info("No ID3 tag found in %r, creating one", track)
+            info("No ID3 tag found in '%s', creating one", track)
             id3 = ID3()
 
         return id3
