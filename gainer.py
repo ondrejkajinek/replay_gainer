@@ -1,6 +1,8 @@
 # coding: utf8
 
-from os import listdir, path
+from os import path
+
+from utils import directories
 
 MUSIC_DIRECTORY_KEY = "music_directory"
 
@@ -61,15 +63,9 @@ class Gainer(object):
             for suffix in gainer.supported_suffixes
         }
 
-    def _subdirs(self, directory):
-        for item in listdir(directory):
-            item_path = path.join(directory, item)
-            if path.isdir(item_path):
-                yield item_path
-
     def _walk_mpd_dirs(self):
         dirs = [self._directory]
         while dirs:
             current_dir = dirs.pop()
-            dirs.extend(self._subdirs(current_dir))
+            dirs.extend(directories(current_dir))
             yield current_dir
