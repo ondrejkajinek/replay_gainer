@@ -1,6 +1,6 @@
 # coding: utf8
 
-from utils import convert_gain, convert_peak, files, has_command, run
+from utils import convert_gain, convert_peak, files, has_command, shell_run
 from utils import TimeRange
 
 from os import path
@@ -36,9 +36,8 @@ class Gainer(object):
                 )
             )
             if not self._debug:
-                run(
-                    self._add_command(self._fix_directory(directory)),
-                    shell=True
+                shell_run(
+                    self._add_command(self._fix_directory(directory))
                 )
                 self._create_time_mark(directory)
 
@@ -50,9 +49,8 @@ class Gainer(object):
                 )
             )
             if not self._debug:
-                run(
-                    self._remove_command(self._fix_directory(directory)),
-                    shell=True
+                shell_run(
+                    self._remove_command(self._fix_directory(directory))
                 )
 
     def _create_time_mark(self, directory):
