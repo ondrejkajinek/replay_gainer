@@ -36,9 +36,7 @@ class Gainer(object):
                 )
             )
             if not self._debug:
-                shell_run(
-                    self._add_command(self._fix_directory(directory))
-                )
+                shell_run(self._add_command(self._fix_directory(directory)))
                 self._create_time_mark(directory)
 
     def remove(self, directory, start_time, force=False):
@@ -49,9 +47,7 @@ class Gainer(object):
                 )
             )
             if not self._debug:
-                shell_run(
-                    self._remove_command(self._fix_directory(directory))
-                )
+                shell_run(self._remove_command(self._fix_directory(directory)))
 
     def _create_time_mark(self, directory):
         with open(self._mark_file(directory), "w"):
