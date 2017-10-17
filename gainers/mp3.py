@@ -10,7 +10,7 @@ from mutagen.id3 import error as id3_error
 from mutagen.id3 import Encoding as Id3Encoding
 
 from .gainer import Gainer
-from .utils import error, info
+from utils import error, info
 
 
 class Mp3Gainer(Gainer):

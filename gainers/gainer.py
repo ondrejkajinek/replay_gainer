@@ -1,6 +1,6 @@
 # coding: utf8
 
-from .utils import convert_gain, convert_peak, has_command, run
+from utils import convert_gain, convert_peak, has_command, run
 
 
 class Gainer(object):
