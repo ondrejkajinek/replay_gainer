@@ -19,7 +19,7 @@ class Lock(object):
             with open(self.lockfile, "w"):
                 pass
         except Exception as exc:
-            self._remove()
+            self.release()
             raise LockError(
                 "Couldn't create lock file, error: %s" % (exc,)
             )
@@ -31,8 +31,5 @@ class Lock(object):
             raise LockError("Lock is not active!")
 
     def release(self):
-        self._remove()
-
-    def _remove(self):
         if path.isfile(self.lockfile):
             remove(self.lockfile)
