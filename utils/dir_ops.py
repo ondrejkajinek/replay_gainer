@@ -3,6 +3,16 @@
 from os import listdir, path
 
 
+def escape(directory):
+    # TODO: something functional and nice :)
+    escaped = " ()'"
+    fixed = directory
+    for char in escaped:
+        fixed = fixed.replace(char, "\\" + char)
+
+    return fixed
+
+
 def files(directory):
     return _dir_iterator(directory, path.isfile)
 

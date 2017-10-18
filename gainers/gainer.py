@@ -2,7 +2,9 @@
 
 from os import path
 
-from utils import convert_gain, convert_peak, files, has_command, shell_run
+from utils import convert_gain, convert_peak
+from utils import escape as dir_escape, files
+from utils import has_command, shell_run
 
 
 class Gainer(object):
@@ -33,7 +35,7 @@ class Gainer(object):
                 )
             )
             if not self._debug:
-                shell_run(self._add_command(self._fix_directory(directory)))
+                shell_run(self._add_command(dir_escape(directory)))
 
     def remove(self, directory, force=False):
         if self._needs_remove(directory):
@@ -43,7 +45,7 @@ class Gainer(object):
                 )
             )
             if not self._debug:
-                shell_run(self._remove_command(self._fix_directory(directory)))
+                shell_run(self._remove_command(dir_escape(directory)))
 
     def _check_environment(self):
         if self.gain_program is None:
@@ -60,15 +62,6 @@ class Gainer(object):
             raise RuntimeError(
                 "Gainer %r does not support any file suffix!" % str(self)
             )
-
-    def _fix_directory(self, directory):
-        # TODO: something functional and nice :)
-        escaped = " ()'"
-        fixed = directory
-        for char in escaped:
-            fixed = fixed.replace(char, "\\" + char)
-
-        return fixed
 
     def _has_tags(self, track):
         tags = self._load_tags(track)
