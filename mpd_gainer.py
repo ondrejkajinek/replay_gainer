@@ -28,7 +28,7 @@ def _check_options(options):
         raise RuntimeError(
             "No media type selected, will do nothing. "
             "Enable at least one of the following: "
-            "--process-flac, --process-mp3, --process-flac"
+            "--flac, --mp3, --flac"
         )
 
 
