@@ -16,9 +16,15 @@ class VorbisGainer(Gainer):
         #     self.gain_program, path.join(directory, "*.flac")
         # )
 
+    def _load_tags(self, track):
+        raise NotImplementedError()
+
     def _remove_command(self, directory):
         pass
         # TODO
         # return """%s --remove-replay-gain %s""" % (
         #     self.gain_program, path.join(directory, "*.flac")
         # )
+
+    def _replay_gain_tag_names(self):
+        raise NotImplementedError()

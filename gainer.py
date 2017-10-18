@@ -19,12 +19,10 @@ class Gainer(object):
         if options.debug:
             print("Running in debug mode, processed dirs will be printed.")
 
-    def process(self, start_time):
+    def process(self):
         for directory in self._walk_mpd_dirs():
             for gainer in self.gainers.itervalues():
-                getattr(gainer, self._method)(
-                    directory, start_time, self._force
-                )
+                getattr(gainer, self._method)(directory, self._force)
 
     def _get_mpd_dir(self):
 

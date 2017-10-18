@@ -19,16 +19,21 @@ class Mp3Gainer(Gainer):
 
     supported_suffixes = (".mp3", )
 
-    def add(self, directory, start_time, force=False):
-        super(Mp3Gainer, self).add(directory, start_time, force)
+    REPLAYGAIN_TAGS = Gainer.REPLAYGAIN_TAGS + (
+        ("mp3gain_album_minmax", None),
+        ("mp3gain_minmax", None)
+    )
+
+    def add(self, directory, force=False):
+        super(Mp3Gainer, self).add(directory, force)
         for track in self._list_tracks(directory):
             try:
                 self._apev2_to_id3(track)
             except:
                 pass
 
-    def remove(self, directory, start_time, force=False):
-        super(Mp3Gainer, self).remove(directory, start_time, force)
+    def remove(self, directory, force=False):
+        super(Mp3Gainer, self).remove(directory, force)
         if self._needs_remove(directory):
             for track in self._list_tracks(directory):
                 try:
@@ -43,7 +48,7 @@ class Mp3Gainer(Gainer):
 
     def _apev2_to_id3(self, track):
         ape = self._load_ape(track)
-        id3 = self._load_id3(track)
+        id3 = self._load_tags(track)
         saving = False
         for tag_name, converter in self.REPLAYGAIN_TAGS:
             if tag_name in ape:
@@ -83,7 +88,7 @@ class Mp3Gainer(Gainer):
         else:
             return ape
 
-    def _load_id3(self, track):
+    def _load_tags(self, track):
         try:
             id3 = ID3(track)
         except id3_error:
@@ -98,9 +103,9 @@ class Mp3Gainer(Gainer):
                 yield path.join(directory, file_)
 
     def _remove_id3_replaygain(self, track):
-        id3 = self._load_id3(track)
-        for tag in self.REPLAYGAIN_TAGS:
-            id3.pop("TXXX:%s" % tag[0], None)
+        id3 = self._load_tags(track)
+        for tag in self._replay_gain_tag_names():
+            id3.pop(tag, None)
 
         id3.save(track)
 
@@ -108,3 +113,7 @@ class Mp3Gainer(Gainer):
         return """%s -s d %s""" % (
             self.gain_program, path.join(directory, "*.mp3")
         )
+
+    def _replay_gain_tag_names(self):
+        for tag in self.REPLAYGAIN_TAGS:
+            yield "TXXX:%s" % tag[0]

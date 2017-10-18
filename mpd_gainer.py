@@ -67,7 +67,7 @@ if __name__ == "__main__":
         lock = None
     else:
         gainer = Gainer(_get_options())
-        gainer.process(lock.lock_time())
+        gainer.process()
     finally:
         if lock:
             lock.release()
