@@ -26,11 +26,12 @@ class Mp3Gainer(Gainer):
 
     def add(self, directory, force=False):
         super(Mp3Gainer, self).add(directory, force)
-        for track in self._list_tracks(directory):
-            try:
-                self._apev2_to_id3(track)
-            except:
-                pass
+        if self._needs_add(directory, force):
+            for track in self._list_tracks(directory):
+                try:
+                    self._apev2_to_id3(track)
+                except:
+                    pass
 
     def remove(self, directory, force=False):
         super(Mp3Gainer, self).remove(directory, force)
