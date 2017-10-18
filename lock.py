@@ -24,12 +24,6 @@ class Lock(object):
                 "Couldn't create lock file, error: %s" % (exc,)
             )
 
-    def lock_time(self):
-        try:
-            return path.getmtime(self.lockfile)
-        except:
-            raise LockError("Lock is not active!")
-
     def release(self):
         if path.isfile(self.lockfile):
             remove(self.lockfile)
