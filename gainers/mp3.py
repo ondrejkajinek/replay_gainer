@@ -29,11 +29,12 @@ class Mp3Gainer(Gainer):
 
     def remove(self, directory, start_time, force=False):
         super(Mp3Gainer, self).remove(directory, start_time, force)
-        for track in self._list_tracks(directory):
-            try:
-                self._remove_id3_replaygain(track)
-            except:
-                pass
+        if self._needs_remove(directory):
+            for track in self._list_tracks(directory):
+                try:
+                    self._remove_id3_replaygain(track)
+                except:
+                    pass
 
     def _add_command(self, directory):
         return """%s -s a %s""" % (
@@ -98,9 +99,10 @@ class Mp3Gainer(Gainer):
 
     def _remove_id3_replaygain(self, track):
         id3 = self._load_id3(track)
-        for tag_name, tag_value in id3:
-            info("%s -> %s", tag_name, tag_value)
-            # TODO: remove those TXXX tags that are from REPLAYGAIN_TAGS
+        for tag in self.REPLAYGAIN_TAGS:
+            id3.pop("TXXX:%s" % tag[0], None)
+
+        id3.save(track)
 
     def _remove_command(self, directory):
         return """%s -s d %s""" % (
