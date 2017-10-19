@@ -4,6 +4,7 @@ from os import path
 
 from utils import convert_gain, convert_peak
 from utils import escape as dir_escape, files
+from utils import info
 from utils import has_command, shell_run
 
 
@@ -29,7 +30,7 @@ class Gainer(object):
 
     def add(self, directory, force=False):
         if self._needs_add(directory, force):
-            print(
+            info(
                 "Adding replay gain tags in directory '%s' with %r" % (
                     directory, self.__class__.__name__
                 )
@@ -39,7 +40,7 @@ class Gainer(object):
 
     def remove(self, directory, force=False):
         if self._needs_remove(directory):
-            print(
+            info(
                 "Removing replay gain tags in directory '%s' with %r" % (
                     directory, self.__class__.__name__
                 )

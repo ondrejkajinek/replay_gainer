@@ -4,6 +4,7 @@ from argparse import ArgumentParser
 
 from gainer import Gainer
 from lock import Lock, LockError
+from utils import error, info
 
 
 def _check_options(options):
@@ -13,7 +14,7 @@ def _check_options(options):
             "--add-replay-gain and --remove-replay-gain are mutually exclusive"
         )
     elif not any((options.add_replay_gain, options.remove_replay_gain)):
-        print("No action selected, --add-replay-gain used as default")
+        info("No action selected, --add-replay-gain used as default")
         options.add_replay_gain = True
 
     if options.all:
@@ -62,8 +63,7 @@ if __name__ == "__main__":
     try:
         lock = Lock()
     except LockError as exc:
-        # TODO stderr
-        print("Couldn't create lock file: %s" % exc)
+        error("Couldn't create lock file: %s" % exc)
         lock = None
     else:
         gainer = Gainer(_get_options())

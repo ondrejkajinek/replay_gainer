@@ -3,6 +3,7 @@
 from os import path
 
 from utils import directories
+from utils import info
 
 MUSIC_DIRECTORY_KEY = "music_directory"
 
@@ -17,7 +18,7 @@ class Gainer(object):
         self._method = "add" if options.add_replay_gain else "remove"
         self._load_gainers(options)
         if options.debug:
-            print("Running in debug mode, processed dirs will be printed.")
+            info("Running in debug mode, processed dirs will be printed.")
 
     def process(self):
         for directory in self._walk_mpd_dirs():
