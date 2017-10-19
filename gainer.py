@@ -3,7 +3,7 @@
 from os import path
 
 from utils import directories
-from utils import info
+from utils import error, info
 
 MUSIC_DIRECTORY_KEY = "music_directory"
 
@@ -23,7 +23,12 @@ class Gainer(object):
     def process(self):
         for directory in self._walk_mpd_dirs():
             for gainer in self.gainers.itervalues():
-                getattr(gainer, self._method)(directory, self._force)
+                try:
+                    getattr(gainer, self._method)(directory, self._force)
+                except Exception as exc:
+                    error("Gainer %r failed to process directory '%s': %s" % (
+                        gainer, directory, exc
+                    ))
 
     def _get_mpd_dir(self):
 
