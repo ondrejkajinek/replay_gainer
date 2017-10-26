@@ -5,7 +5,7 @@ from os import listdir, path
 
 def escape(directory):
     # TODO: something functional and nice :)
-    escaped = " ()'"
+    escaped = " ()'&[]"
     fixed = directory
     for char in escaped:
         fixed = fixed.replace(char, "\\" + char)
