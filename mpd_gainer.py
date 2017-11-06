@@ -66,8 +66,11 @@ if __name__ == "__main__":
         error("Couldn't create lock file: %s" % exc)
         lock = None
     else:
-        gainer = Gainer(_get_options())
-        gainer.process()
+        try:
+            gainer = Gainer(_get_options())
+            gainer.process()
+        except KeyboardInterrupt:
+            error("Interrupted by user.")
     finally:
         if lock:
             lock.release()
