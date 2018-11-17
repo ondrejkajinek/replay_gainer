@@ -62,9 +62,6 @@ class Mp3Gainer(Gainer):
 
         if saving:
             id3.save(track)
-            info("Track '%s': APEv2 copied to ID3", track)
-        else:
-            info("No changes made in file '%s', not saving", track)
 
     def _copy_replaygain_tag(self, ape, id3, tag_name, converter):
         if callable(converter):
