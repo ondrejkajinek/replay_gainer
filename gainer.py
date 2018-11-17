@@ -27,9 +27,11 @@ class Gainer(object):
                 try:
                     getattr(gainer, self._method)(directory, self._force)
                 except Exception as exc:
-                    error("Gainer %r failed to process directory '%s': %s" % (
-                        gainer, directory, exc
-                    ))
+                    error(
+                        "Gainer '%s' failed to process directory '%s': %s" % (
+                            gainer.__class__.__name__, directory, exc
+                        )
+                    )
 
     def _get_mpd_dir(self):
 
