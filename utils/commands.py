@@ -2,10 +2,17 @@
 
 from os import devnull
 from subprocess import check_call
+from subprocess import CalledProcessError
 
 
 def has_command(command):
-    return _run(["which", command]) == 0
+    try:
+        _run(["which", command])
+        has = True
+    except CalledProcessError:
+        has = False
+
+    return has
 
 
 def shell_run(command):
