@@ -15,6 +15,7 @@ class Gainer(object):
     def __init__(self, options):
         self._directory = options.directory or self._get_mpd_dir()
         self._force = options.force
+        self._gainers = []
         self._method = "add" if options.add_replay_gain else "remove"
         self._load_gainers(options)
         if options.debug:
@@ -22,7 +23,7 @@ class Gainer(object):
 
     def process(self):
         for directory in self._walk_mpd_dirs():
-            for gainer in self.gainers.itervalues():
+            for gainer in self._gainers:
                 try:
                     getattr(gainer, self._method)(directory, self._force)
                 except Exception as exc:
@@ -48,24 +49,17 @@ class Gainer(object):
             return None
 
     def _load_gainers(self, options):
-        gainers = []
         if options.flac:
             from gainers import FlacGainer
-            gainers.append(FlacGainer(options.debug))
+            self._gainers.append(FlacGainer(options.debug))
 
         if options.vorbis:
             from gainers import VorbisGainer
-            gainers.append(VorbisGainer(options.debug))
+            self._gainers.append(VorbisGainer(options.debug))
 
         if options.mp3:
             from gainers import Mp3Gainer
-            gainers.append(Mp3Gainer(options.debug))
-
-        self.gainers = {
-            suffix: gainer
-            for gainer in gainers
-            for suffix in gainer.supported_suffixes
-        }
+            self._gainers.append(Mp3Gainer(options.debug))
 
     def _walk_mpd_dirs(self):
         dirs = [self._directory]
