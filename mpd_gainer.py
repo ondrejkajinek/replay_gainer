@@ -38,21 +38,19 @@ def _check_options(options):
 
 def _get_options():
 
-    def add_switch(parser, *args, **kwargs):
+    def add_switch(parser, opt):
         parser.add_argument(
-            *args, action="store_const", const=True, default=False, **kwargs
+            opt, action="store_const", const=True, default=False
         )
 
     parser = ArgumentParser(
         description="MPD ReplayGain tool"
     )
     parser.add_argument("--directory", "-d", default=None)
-    add_switch(parser, "--add-replay-gain", "-A")
-    add_switch(parser, "--remove-replay-gain", "-R")
+    add_switch(parser, "--add-replay-gain")
+    add_switch(parser, "--remove-replay-gain")
     add_switch(parser, "--debug")
-    add_switch(parser, "--dry", dest="debug")
-    add_switch(parser, "--force", "-F")
-    media_types = ("flac", "vorbis", "mp3")
+    add_switch(parser, "--force")
     add_switch(parser, "--all")
     for media_type in SUPPORTED_MEDIA_TYPES:
         add_switch(parser, "--%s" % media_type)
