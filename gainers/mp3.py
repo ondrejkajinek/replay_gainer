@@ -17,7 +17,7 @@ class Mp3Gainer(Gainer):
 
     gain_program = "mp3gain"
 
-    supported_suffixes = (".mp3", )
+    supported_suffixes = (".mp3", ".m4a")
 
     REPLAYGAIN_TAGS = Gainer.REPLAYGAIN_TAGS + (
         ("mp3gain_album_minmax", None),
