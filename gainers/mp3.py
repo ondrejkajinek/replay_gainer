@@ -30,7 +30,7 @@ class Mp3Gainer(Gainer):
             for track in self._list_tracks(directory):
                 try:
                     self._apev2_to_id3(track)
-                except:
+                except BaseException:
                     pass
 
     def remove(self, directory, force=False):
@@ -39,7 +39,7 @@ class Mp3Gainer(Gainer):
             for track in self._list_tracks(directory):
                 try:
                     self._remove_id3_replaygain(track)
-                except:
+                except BaseException:
                     pass
 
     def _add_command(self, directory):
@@ -80,7 +80,7 @@ class Mp3Gainer(Gainer):
         except apev2_error:
             info("No APEv2 on file '%s', skipping", track)
             raise
-        except:
+        except BaseException:
             error("Error: %s", exc_info()[1])
             raise
         else:
