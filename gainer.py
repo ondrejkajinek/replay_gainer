@@ -53,14 +53,17 @@ class Gainer(object):
     def _load_gainers(self, options):
         if options.flac:
             from gainers import FlacGainer
+            info("Enabling FlacGainer")
             self._gainers.append(FlacGainer(options.debug))
 
         if options.vorbis:
             from gainers import VorbisGainer
+            info("Enabling VorbitGainer")
             self._gainers.append(VorbisGainer(options.debug))
 
         if options.mp3:
             from gainers import Mp3Gainer
+            info("Enabling Mp3Gainer")
             self._gainers.append(Mp3Gainer(options.debug))
 
     def _walk_mpd_dirs(self):
