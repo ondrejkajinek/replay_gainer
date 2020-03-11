@@ -1,16 +1,16 @@
 # coding: utf8
 
 from os import listdir, path
+import functools
 
 
 def escape(directory):
-    # TODO: something functional and nice :)
-    escaped = " ()'&[]"
-    fixed = directory
-    for char in escaped:
-        fixed = fixed.replace(char, "\\" + char)
-
-    return fixed
+    """Escapes characters for bash"""
+    return functools.reduce(
+        lambda value, char: value.replace(char, "\\" + char),
+        " ()'&[]",
+        directory
+    )
 
 
 def files(directory):
