@@ -25,10 +25,8 @@ def _check_options(options):
         for opt in SUPPORTED_MEDIA_TYPES:
             setattr(options, opt, True)
 
-    if not any(
-        # (options.flac, options.vorbis, options.mp3)
-        (options.flac, options.mp3)
-    ):
+    # if not any((options.flac, options.vorbis, options.mp3)):
+    if not any((options.flac, options.mp3)):
         raise RuntimeError(
             "No media type selected, will do nothing. "
             "Enable at least one of the following: "
