@@ -16,6 +16,8 @@ from utils import error, info
 class Mp3Gainer(Gainer):
 
     gain_program = "mp3gain"
+    gain_add = "mp3gain -a -f -s a %s"
+    gain_remove = "mp3gain -s -d %s"
 
     supported_suffixes = (".mp3", ".m4a")
 
@@ -41,11 +43,6 @@ class Mp3Gainer(Gainer):
                     self._remove_id3_replaygain(track)
                 except BaseException:
                     pass
-
-    def _add_command(self, directory):
-        return """%s -s a %s""" % (
-            self.gain_program, path.join(directory, "*.mp3")
-        )
 
     def _apev2_to_id3(self, track):
         ape = self._load_ape(track)
@@ -106,11 +103,6 @@ class Mp3Gainer(Gainer):
             id3.pop(tag, None)
 
         id3.save(track)
-
-    def _remove_command(self, directory):
-        return """%s -s d %s""" % (
-            self.gain_program, path.join(directory, "*.mp3")
-        )
 
     def _replay_gain_tag_names(self):
         for tag in self.REPLAYGAIN_TAGS:

@@ -3,9 +3,10 @@
 from os import path
 
 from utils import convert_gain, convert_peak
-from utils import escape as dir_escape, files
+from utils import escape, files
 from utils import info
 from utils import has_command, shell_run
+from .utils import contained_suffixes
 
 
 class Gainer(object):
@@ -18,6 +19,8 @@ class Gainer(object):
     )
 
     gain_program = None
+    gain_add = None
+    gain_remove = None
 
     supported_suffixes = set()
 
@@ -36,7 +39,7 @@ class Gainer(object):
                 )
             )
             if not self._debug:
-                shell_run(self._add_command(dir_escape(directory)))
+                shell_run(self._add_command(directory))
 
     def remove(self, directory, force=False):
         if self._needs_remove(directory):
@@ -46,12 +49,21 @@ class Gainer(object):
                 )
             )
             if not self._debug:
-                shell_run(self._remove_command(dir_escape(directory)))
+                shell_run(self._remove_command(directory))
+
+    def _add_command(self, directory):
+        return self.gain_add % (
+            " ".join(
+                os.path.join(escape(directory), "*{}".format(suffix))
+                for suffix
+                in contained_suffixes(self.supported_suffixes, directory)
+            )
+        )
 
     def _check_environment(self):
-        if self.gain_program is None:
+        if None in (self.gain_program, self.gain_add, self.gain_remove):
             raise RuntimeError(
-                "No replay-gain util configured for class %r" % str(self)
+                "replay-gain util not properly configured configured for class %r" % str(self)
             )
 
         if not has_command(self.gain_program):
@@ -93,6 +105,15 @@ class Gainer(object):
             )
             for item
             in files(directory)
+        )
+
+    def _remove_command(self, directory):
+        return self.gain_remove % (
+            " ".join(
+                os.path.join(escape(directory), "*{}".format(suffix))
+                for suffix
+                in contained_suffixes(self.supported_suffixes, directory)
+            )
         )
 
     def _replay_gain_tag_names(self):
