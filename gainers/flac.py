@@ -2,7 +2,6 @@
 
 from mutagen.flac import FLAC
 from mutagen.flac import error as flac_error
-from os import path
 
 from .gainer import Gainer
 from utils import convert_gain, info

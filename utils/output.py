@@ -1,6 +1,6 @@
 # coding: utf8
 
-from sys import stdout, stderr
+import sys
 
 
 ENDC = "\033[0m"
@@ -9,11 +9,13 @@ INFO = "\033[34m"
 
 
 def error(message, *args):
-    stderr.write(_single_line("%s%s%s\n" % (FAIL, message % args, ENDC)))
+    """prints error message to stderr, in red color"""
+    sys.stderr.write(_single_line("%s%s%s\n" % (FAIL, message % args, ENDC)))
 
 
 def info(message, *args):
-    stdout.write(_single_line("%s%s%s\n" % (INFO, message % args, ENDC)))
+    """prints info message to stdout, in blue color"""
+    sys.stdout.write(_single_line("%s%s%s\n" % (INFO, message % args, ENDC)))
 
 
 def _single_line(text):

@@ -1,7 +1,7 @@
 # coding: utf8
 
-from os import listdir, path
 import functools
+import os
 
 
 def escape(directory):
@@ -14,17 +14,19 @@ def escape(directory):
 
 
 def files(directory):
-    return _dir_iterator(directory, path.isfile)
+    """Returns iterator over files in directory"""
+    return _dir_iterator(directory, os.path.isfile)
 
 
 def directories(directory):
-    return _dir_iterator(directory, path.isdir)
+    """Returns iterator over subdirectories in directory"""
+    return _dir_iterator(directory, os.path.isdir)
 
 
 def _dir_iterator(directory, condition):
     return (
-        path.join(directory, item)
+        os.path.join(directory, item)
         for item
-        in listdir(directory)
-        if condition(path.join(directory, item))
+        in os.listdir(directory)
+        if condition(os.path.join(directory, item))
     )

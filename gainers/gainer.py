@@ -1,6 +1,6 @@
 # coding: utf8
 
-from os import path
+import os
 
 from utils import convert_gain, convert_peak
 from utils import escape, files
@@ -90,7 +90,7 @@ class Gainer(object):
     def _needs_add(self, directory, force):
         return any(
             (
-                path.splitext(item)[1] in self.supported_suffixes and
+                os.path.splitext(item)[1] in self.supported_suffixes and
                 (not self._has_tags(item) or force)
             )
             for item
@@ -100,7 +100,7 @@ class Gainer(object):
     def _needs_remove(self, directory):
         return any(
             (
-                path.splitext(item)[1] in self.supported_suffixes and
+                os.path.splitext(item)[1] in self.supported_suffixes and
                 self._has_tags(item)
             )
             for item

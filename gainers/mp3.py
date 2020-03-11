@@ -1,7 +1,7 @@
 # coding: utf8
 
-from os import listdir, path
-from sys import exc_info
+import os
+import sys
 
 from mutagen.apev2 import APEv2
 from mutagen.apev2 import error as apev2_error
@@ -78,7 +78,7 @@ class Mp3Gainer(Gainer):
             info("No APEv2 on file '%s', skipping", track)
             raise
         except BaseException:
-            error("Error: %s", exc_info()[1])
+            error("Error: %s", sys.exc_info()[1])
             raise
         else:
             return ape
@@ -93,9 +93,9 @@ class Mp3Gainer(Gainer):
         return id3
 
     def _list_tracks(self, directory):
-        for file_ in listdir(directory):
-            if path.splitext(file_)[1].lower() == ".mp3":
-                yield path.join(directory, file_)
+        for file_ in os.listdir(directory):
+            if os.path.splitext(file_)[1].lower() == ".mp3":
+                yield os.path.join(directory, file_)
 
     def _remove_id3_replaygain(self, track):
         id3 = self._load_tags(track)
