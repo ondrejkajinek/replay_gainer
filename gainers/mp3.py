@@ -7,8 +7,8 @@ from mutagen.id3 import ID3, TXXX
 from mutagen.id3 import error as id3_error
 from mutagen.id3 import Encoding as Id3Encoding
 
-from .gainer import Gainer
 from utils import error, info
+from .gainer import Gainer
 
 
 class Mp3Gainer(Gainer):

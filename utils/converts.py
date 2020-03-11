@@ -10,4 +10,4 @@ def convert_peak(peak):
     try:
         return "%.6f" % float(peak)
     except ValueError:
-        raise ValueError("Invalid peak value: %r", peak)
+        raise ValueError("Invalid peak value: %r" % peak)

@@ -1,8 +1,8 @@
 from mutagen.flac import FLAC
 from mutagen.flac import error as flac_error
 
-from .gainer import Gainer
 from utils import convert_gain, info
+from .gainer import Gainer
 
 
 class FlacGainer(Gainer):

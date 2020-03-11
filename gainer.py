@@ -1,5 +1,3 @@
-# coding: utf8
-
 import subprocess
 
 from utils import directories
@@ -8,7 +6,7 @@ from utils import error, info
 MUSIC_DIRECTORY_KEY = "music_directory"
 
 
-class Gainer(object):
+class Gainer():
 
     def __init__(self, options):
         self._directory = options.directory or self._get_mpd_dir()
