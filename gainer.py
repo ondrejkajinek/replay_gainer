@@ -1,6 +1,7 @@
 # coding: utf8
 
 from os import path
+import subprocess
 
 from utils import directories
 from utils import error, info
@@ -26,7 +27,17 @@ class Gainer(object):
             for gainer in self._gainers:
                 try:
                     getattr(gainer, self._method)(directory, self._force)
+                except subprocess.CalledProcessError as exc:
+                    error(
+                        "Gainer '%s' failed to process directory '%s': %s" % (
+                            gainer.__class__.__name__,
+                            directory,
+                            exc.output.decode("utf8")
+                        )
+                    )
                 except Exception as exc:
+                    import traceback
+                    error(traceback.format_exc())
                     error(
                         "Gainer '%s' failed to process directory '%s': %s" % (
                             gainer.__class__.__name__, directory, exc
