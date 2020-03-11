@@ -7,7 +7,7 @@ from utils import has_command, shell_run
 from .utils import contained_suffixes
 
 
-class Gainer():
+class BaseGainer():
 
     REPLAYGAIN_TAGS = (
         ("replaygain_album_gain", convert_gain),
@@ -84,6 +84,9 @@ class Gainer():
             success = True
 
         return success
+
+    def _load_tags(self, track):
+        raise NotImplementedError()
 
     def _needs_add(self, directory, force):
         return any(

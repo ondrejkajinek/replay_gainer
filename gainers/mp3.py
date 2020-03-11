@@ -8,10 +8,10 @@ from mutagen.id3 import error as id3_error
 from mutagen.id3 import Encoding as Id3Encoding
 
 from utils import error, info
-from .gainer import Gainer
+from .base_gainer import BaseGainer
 
 
-class Mp3Gainer(Gainer):
+class Mp3Gainer(BaseGainer):
 
     gain_program = "mp3gain"
     gain_add = "mp3gain -a -f -s a %s"
@@ -19,7 +19,7 @@ class Mp3Gainer(Gainer):
 
     supported_suffixes = (".mp3", ".m4a")
 
-    REPLAYGAIN_TAGS = Gainer.REPLAYGAIN_TAGS + (
+    REPLAYGAIN_TAGS = BaseGainer.REPLAYGAIN_TAGS + (
         ("mp3gain_album_minmax", None),
         ("mp3gain_minmax", None)
     )

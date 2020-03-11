@@ -2,10 +2,10 @@ from mutagen.flac import FLAC
 from mutagen.flac import error as flac_error
 
 from utils import convert_gain, info
-from .gainer import Gainer
+from .base_gainer import BaseGainer
 
 
-class FlacGainer(Gainer):
+class FlacGainer(BaseGainer):
 
     gain_program = "metaflac"
     gain_add = "metaflac --add-replay-gain %s"
@@ -13,7 +13,7 @@ class FlacGainer(Gainer):
 
     supported_suffixes = (".flac", )
 
-    REPLAYGAIN_TAGS = Gainer.REPLAYGAIN_TAGS + (
+    REPLAYGAIN_TAGS = BaseGainer.REPLAYGAIN_TAGS + (
         ('replaygain_reference_loudness', convert_gain),
     )
 

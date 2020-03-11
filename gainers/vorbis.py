@@ -1,7 +1,7 @@
-from .gainer import Gainer
+from .base_gainer import BaseGainer
 
 
-class VorbisGainer(Gainer):
+class VorbisGainer(BaseGainer):
 
     # gain_program = ""
     # gain_add = ""
