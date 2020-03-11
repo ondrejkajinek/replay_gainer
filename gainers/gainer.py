@@ -1,5 +1,3 @@
-# coding: utf8
-
 import os
 
 from utils import convert_gain, convert_peak
@@ -9,7 +7,7 @@ from utils import has_command, shell_run
 from .utils import contained_suffixes
 
 
-class Gainer(object):
+class Gainer():
 
     REPLAYGAIN_TAGS = (
         ("replaygain_album_gain", convert_gain),

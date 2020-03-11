@@ -1,5 +1,3 @@
-# coding: utf8
-
 import os
 import sys
 
@@ -27,7 +25,7 @@ class Mp3Gainer(Gainer):
     )
 
     def add(self, directory, force=False):
-        super(Mp3Gainer, self).add(directory, force)
+        super().add(directory, force)
         if self._needs_add(directory, force):
             for track in self._list_tracks(directory):
                 try:
@@ -36,7 +34,7 @@ class Mp3Gainer(Gainer):
                     pass
 
     def remove(self, directory, force=False):
-        super(Mp3Gainer, self).remove(directory, force)
+        super().remove(directory, force)
         if self._needs_remove(directory):
             for track in self._list_tracks(directory):
                 try:
@@ -52,8 +50,8 @@ class Mp3Gainer(Gainer):
             if tag_name in ape:
                 try:
                     self._copy_replaygain_tag(ape, id3, tag_name, converter)
-                except ValueError as e:
-                    error("Error when copying replay gain tag: %r", e)
+                except ValueError as exc:
+                    error("Error when copying replay gain tag: %r", exc)
                 else:
                     saving = True
 

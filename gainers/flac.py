@@ -1,5 +1,3 @@
-# coding: utf8
-
 from mutagen.flac import FLAC
 from mutagen.flac import error as flac_error
 

@@ -1,6 +1,3 @@
-# coding: utf8
-
-
 def convert_gain(orig_gain):
     gain = orig_gain[:-3] if orig_gain.endswith(" dB") else orig_gain
     try:

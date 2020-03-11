@@ -1,5 +1,4 @@
-#! /usr/bin/env python
-# coding: utf8
+#! /usr/bin/env python3
 
 from argparse import ArgumentParser
 
@@ -35,7 +34,8 @@ def _check_options(options):
             "Conflict in arguments: "
             "--add-replay-gain and --remove-replay-gain are mutually exclusive"
         )
-    elif not any((options.add_replay_gain, options.remove_replay_gain)):
+
+    if not any((options.add_replay_gain, options.remove_replay_gain)):
         info("No action selected, --add-replay-gain used as default")
         options.add_replay_gain = True
 
@@ -55,6 +55,11 @@ def _check_options(options):
 def _get_options():
 
     def add_switch(parser, opt):
+        """
+        Adds switch-like argument to argument parser.
+
+        When this options is given from cmd, it is 'store_const'ed with True value
+        """
         parser.add_argument(
             opt, action="store_const", const=True, default=False
         )
