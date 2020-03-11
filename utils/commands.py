@@ -1,13 +1,20 @@
 # coding: utf8
 
-from os import devnull
-from subprocess import check_call
+import os
+from subprocess import check_call, check_output
 from subprocess import CalledProcessError
 
 
 def has_command(command):
+    """
+    Checks if specified command exists in current environment
+
+    'which' command is used for this purpose
+    """
     try:
-        _run(["which", command])
+        with open(os.devnull, "w") as dev_null:
+            check_call(("which", command), stdout=dev_null)
+
         has = True
     except CalledProcessError:
         has = False
@@ -16,9 +23,4 @@ def has_command(command):
 
 
 def shell_run(command):
-    return _run(command, shell=True)
-
-
-def _run(command, **kwargs):
-    with open(devnull, "w") as dn:
-        return check_call(command, stdout=dn, **kwargs)
+    return check_output(command, shell=True)
