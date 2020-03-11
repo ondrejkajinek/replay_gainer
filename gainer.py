@@ -1,6 +1,5 @@
 # coding: utf8
 
-from os import path
 import subprocess
 
 from utils import directories
@@ -10,8 +9,6 @@ MUSIC_DIRECTORY_KEY = "music_directory"
 
 
 class Gainer(object):
-
-    TIME_MARK_FILE = path.expanduser("~/.config/mpd_gainer/.time_mark")
 
     def __init__(self, options):
         self._directory = options.directory or self._get_mpd_dir()

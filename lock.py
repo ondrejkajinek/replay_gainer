@@ -1,18 +1,30 @@
-# coding: utf8
+"""
+Provides simple locking mechanism via tmpfile
+"""
 
-from os import path, remove
+import os
 
 
 class LockError(RuntimeError):
+    """
+    Raised when lock operations fails, e.g., lock cannot be obtained
+    """
     pass
 
 
-class Lock(object):
+class Lock():
+    """
+    Implements locking facility for gainer
+    """
 
     lockfile = "/tmp/mpd_gainer.lock"
 
     def __init__(self):
-        if path.isfile(self.lockfile):
+        pass
+
+    def acquire(self):
+        """Tries to acquire lock. Raises LockError on failure"""
+        if os.path.isfile(self.lockfile):
             raise LockError("Another active lock already exists!")
 
         try:
@@ -24,6 +36,10 @@ class Lock(object):
                 "Couldn't create lock file, error: %s" % (exc,)
             )
 
+
     def release(self):
-        if path.isfile(self.lockfile):
-            remove(self.lockfile)
+        """
+        Releases acquired lock
+        """
+        if os.path.isfile(self.lockfile):
+            os.remove(self.lockfile)

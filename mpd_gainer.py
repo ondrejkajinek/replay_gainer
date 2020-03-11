@@ -11,6 +11,24 @@ from utils import error, info
 SUPPORTED_MEDIA_TYPES = ("flac", "mp3")
 
 
+def main():
+    lock = Lock()
+    try:
+        lock.acquire()
+    except LockError as exc:
+        error("Couldn't create lock file: %s" % exc)
+        lock = None
+    else:
+        try:
+            gainer = Gainer(_get_options())
+            gainer.process()
+        except KeyboardInterrupt:
+            error("Interrupted by user.")
+    finally:
+        if lock:
+            lock.release()
+
+
 def _check_options(options):
     if all((options.add_replay_gain, options.remove_replay_gain)):
         raise RuntimeError(
@@ -59,17 +77,4 @@ def _get_options():
 
 
 if __name__ == "__main__":
-    try:
-        lock = Lock()
-    except LockError as exc:
-        error("Couldn't create lock file: %s" % exc)
-        lock = None
-    else:
-        try:
-            gainer = Gainer(_get_options())
-            gainer.process()
-        except KeyboardInterrupt:
-            error("Interrupted by user.")
-    finally:
-        if lock:
-            lock.release()
+    main()
