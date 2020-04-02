@@ -1,4 +1,7 @@
 pylint:
+	pylint gainer.py lock.py mpd_gainer.py gainers/ utils/
+
+pylintOrDie:
 	pylint gainer.py lock.py mpd_gainer.py gainers/ utils/ || (echo "Pylint failed, 'git commit' aborted" && exit 1)
 
 gitHooksPreCommitEnable:

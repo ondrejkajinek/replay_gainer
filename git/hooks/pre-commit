@@ -3,5 +3,5 @@
 echo "Running pylint"
 (
 	cd "$PWD";
-	make pylint
+	make pylintOrDie
 )
